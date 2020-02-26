@@ -11,4 +11,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: docker build . --file Dockerfile --tag docker.pkg.github.com/40a/kubepwsh/kubepwsh:${GITHUB_SHA}
+    - name: Push the Docker image
+      run: docker push docker.pkg.github.com/40a/kubepwsh/kubepwsh:${GITHUB_SHA}
