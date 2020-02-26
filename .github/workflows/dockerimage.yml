@@ -10,7 +10,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag docker.pkg.github.com/40a/kubepwsh/kubepwsh:${GITHUB_SHA}
     - name: Push the Docker image
-      run: docker push docker.pkg.github.com/40a/kubepwsh/kubepwsh:${GITHUB_SHA}
+      run: docker login -u 40a -p ${{ secrets.GITHUB_TOKEN }} docker.pkg.github.com && docker push docker.pkg.github.com/40a/kubepwsh/kubepwsh:${GITHUB_SHA}
